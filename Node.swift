@@ -24,6 +24,8 @@ class Node {
     }
     
     func generateNeighbors() {
+        
+        //Living nodes create surrounding nodes
         if (self.alive)
         {
             for deltaX in -1...1 {
@@ -47,57 +49,55 @@ class Node {
         
         var livingNeighbors = 0
         
-        //print("Checking \(self.coordinates.x),\(self.coordinates.y)")
-        //print("================")
+        //Loops to check the eight neighbors surrounding the current node
         
+        //Outer Loop: Change in X posiiton for neighbors
         for deltaX in -1...1 {
+            
+            //Inner Loop: Change in Y position for neighbors
             for deltaY in -1...1 {
+                
+                //If both deltas are 0, then we are on the current node and don't check for life
                 if (!((deltaX == 0) && (deltaY == 0)))
                 {
+                    
+                    //Calculate x,y position for neighbor
                     let nodeX = self.coordinates.x + deltaX
                     let nodeY = self.coordinates.y + deltaY
-                    //print("Checking \(nodeX),\(nodeY)")
                     
+                    //Skip checking nodes that don't exist yet
                     if (nodes[WPoint(x: nodeX, y: nodeY)] != nil)
                     {
+                        //Increment the livingNeighbors counter if the node is alive
                         if (nodes[WPoint(x: nodeX, y: nodeY)]!.alive) {
-                            //print("Neighbor \(nodeX),\(nodeY) is alive")
                             livingNeighbors = livingNeighbors + 1
                         }
                     }
                 }
             }
         }
-        //print("\(self.coordinates.x),\(self.coordinates.y) has \(livingNeighbors) living neghbors")
-        if (self.alive) {
-            //print("\(self.coordinates.x),\(self.coordinates.y) is alive")
-            if (livingNeighbors < 2 || livingNeighbors > 3) {
-                nextGenAlive = false
-                //print("\(self.coordinates.x),\(self.coordinates.y) will die")
-            }
-            else {
+
+        //Apply Conways Life Rules
+        switch (livingNeighbors) {
+        case 2:
+            if (self.alive) {
                 nextGenAlive = true
-                //print("\(self.coordinates.x),\(self.coordinates.y) will live")
-            }
-        }
-        else {
-            print("\(self.coordinates.x),\(self.coordinates.y) is dead")
-            if (livingNeighbors == 3) {
-                nextGenAlive = true
-                //print("\(self.coordinates.x),\(self.coordinates.y) will live")
             }
             else {
                 nextGenAlive = false
-                //print("\(self.coordinates.x),\(self.coordinates.y) will die")
             }
+        case 3:
+            nextGenAlive = true
+        default:
+            nextGenAlive = false
         }
-        
+
+        //Delete dead nodes with no living neighbors
         if (livingNeighbors == 0 && !self.alive)
         {
             nodes[WPoint(x: self.coordinates.x, y: self.coordinates.y)] = nil
         }
         
-        print("")
     }
     
 }

@@ -16,11 +16,11 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let _ = Node(alive: true, coordinates: WPoint(x: 50, y: 50))
-        //let _ = Node(alive: true, coordinates: WPoint(x: 51, y: 50))
+        let _ = Node(alive: true, coordinates: WPoint(x: 51, y: 50))
         let _ = Node(alive: true, coordinates: WPoint(x: 52, y: 50))
         let _ = Node(alive: true, coordinates: WPoint(x: 52, y: 51))
-        //let _ = Node(alive: true, coordinates: WPoint(x: 51, y: 52))
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: #selector(ViewController.cycle(_:)), userInfo: nil, repeats: true)
+        let _ = Node(alive: true, coordinates: WPoint(x: 51, y: 52))
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ViewController.cycle(_:)), userInfo: nil, repeats: true)
         // Do any additional setup after loading the view.
     }
     
