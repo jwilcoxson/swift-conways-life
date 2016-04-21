@@ -25,15 +25,26 @@ class Node {
     
     func generateNeighbors() {
         
-        //Living nodes create surrounding nodes
+        //Living nodes create neighbor nodes
         if (self.alive)
         {
+            //Loops to check the eight neighbors surrounding the current node
+            
+            //Outer Loop: Change in X posiiton for neighbors
             for deltaX in -1...1 {
+                
+                //Inner Loop: Change in Y position for neighbors
                 for deltaY in -1...1 {
+                    
+                    //If both deltas are 0, then we are on the current node and 
+                    //don't try to generate a node
                     if (!((deltaX == 0) && (deltaY == 0)))
                     {
+                        //Calculate x,y position for neighbor
                         let nodeX = self.coordinates.x + deltaX
                         let nodeY = self.coordinates.y + deltaY
+                        
+                        //Generate a node if one doesn't exist
                         if (nodes[WPoint(x: nodeX, y: nodeY)] == nil)
                         {
                             let _ = Node(alive: false, coordinates: WPoint(x: nodeX, y: nodeY))
@@ -57,7 +68,8 @@ class Node {
             //Inner Loop: Change in Y position for neighbors
             for deltaY in -1...1 {
                 
-                //If both deltas are 0, then we are on the current node and don't check for life
+                //If both deltas are 0, then we are on the current node and
+                //don't check for life
                 if (!((deltaX == 0) && (deltaY == 0)))
                 {
                     
